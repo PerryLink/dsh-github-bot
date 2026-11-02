@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-github-bot-hero.png",
+    "kind": "hero",
+    "alt": "dsh-github-bot terminal output",
+    "caption": "Real dsh-github-bot test run; 186 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-github-bot-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-github-bot terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
