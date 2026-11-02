@@ -1,5 +1,5 @@
 // Post-process the CI run for the composite action: publish the step outputs
-// from dsh-github-ci-result.json and enforce the blocking gate.
+// from dsh-github-bot-ci-result.json and enforce the blocking gate.
 //
 // Exit codes:
 //   0 — report exists and the gate passed (or the verdict is non-blocking).
@@ -25,7 +25,7 @@ if (runnerTemp === '' || workspace === '') {
 }
 
 const outputDir = process.env.INPUT_OUTPUT_DIR?.trim() || join(process.env.RUNNER_TEMP ?? '.', 'dsh-github')
-const resultPath = join(outputDir, 'dsh-github-ci-result.json')
+const resultPath = join(outputDir, 'dsh-github-bot-ci-result.json')
 const blocking = (process.env.INPUT_BLOCKING ?? 'true').trim() === 'true'
 const outputFile = process.env.GITHUB_OUTPUT ?? ''
 
@@ -38,7 +38,7 @@ try {
   process.exit(1)
 }
 
-const markdownPath = join(outputDir, 'dsh-github-ci-summary.md')
+const markdownPath = join(outputDir, 'dsh-github-bot-ci-summary.md')
 const verdict = typeof result.verdict === 'string' ? result.verdict : 'error'
 if (outputFile !== '') {
   appendFileSync(outputFile,

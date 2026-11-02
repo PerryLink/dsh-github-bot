@@ -49,7 +49,7 @@ Options:
   --post-comments <true|false>    Post inline review comments (default: true)
   --post-check <true|false>       Publish the status check (default: true)
   --request-timeout-ms <n>        Per GitHub request timeout (default: 30000)
-  --plugin-version <version|path> @perrylink/dsh-github version or local folder
+  --plugin-version <version|path> dsh-github-bot version or local folder
                                   (default: latest)
   --workspace <dir>               GITHUB_WORKSPACE for the sandbox (default: repo root)
   --skip-install                  Skip the npm install of dsh-github into the profile
@@ -164,12 +164,12 @@ mkdirSync(profileDir, { recursive: true })
 writeFileSync(join(profileDir, 'package.json'), '{"private": true}\n')
 const installEnv = { DSH_HOME: dshHome, DSH_PROFILE_DIR: profileDir }
 if (options.skipInstall) {
-  console.log('skipping npm install (--skip-install): the overlay row @perrylink/dsh-github must resolve from the profile node_modules')
+  console.log('skipping npm install (--skip-install): the overlay row dsh-github-bot must resolve from the profile node_modules')
 } else {
-  console.log(`installing @perrylink/dsh-github@${options.pluginVersion} into the sandboxed profile …`)
+  console.log(`installing dsh-github-bot@${options.pluginVersion} into the sandboxed profile …`)
   const target = existsSync(options.pluginVersion) || options.pluginVersion.includes('/') || options.pluginVersion.includes('\\')
     ? resolve(options.pluginVersion)
-    : `@perrylink/dsh-github@${options.pluginVersion}`
+    : `dsh-github-bot@${options.pluginVersion}`
   run(`npm install --prefix ${q(profileDir)} --legacy-peer-deps --package-lock=false --no-save --no-audit --no-fund ${q(target)}`, { env: installEnv })
 }
 
@@ -196,7 +196,7 @@ const inputs = {
 run(`node ${q(join(repoRoot, 'scripts', 'action-patch.mjs'))}`, {
   env: { RUNNER_TEMP: sandboxRoot, GITHUB_WORKSPACE: workspace, ...inputs },
 })
-console.log(`overlay and task written: ${join(outputDir, 'dsh-github-ci.cordis.yml')}`)
+console.log(`overlay and task written: ${join(outputDir, 'dsh-github-bot-ci.cordis.yml')}`)
 
 if (options.skipRun) {
   console.log('stopping after prepare (--skip-run); the sandbox is kept for inspection.')
@@ -220,7 +220,7 @@ if (githubToken === '' && options.postComments === 'true') {
   console.log('note: no DSH_GITHUB_TOKEN / GITHUB_TOKEN in the environment — posting comments and the status check will fail per operation (static dry inspections still work).')
 }
 const taskText = readFileSync(join(outputDir, 'task.txt'), 'utf8')
-const overlayPath = join(outputDir, 'dsh-github-ci.cordis.yml')
+const overlayPath = join(outputDir, 'dsh-github-bot-ci.cordis.yml')
 const runEnv = {
   DSH_HOME: dshHome,
   DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
@@ -249,8 +249,8 @@ const post = run(`node ${q(join(repoRoot, 'scripts', 'action-post.mjs'))}`, {
   allowFail: true,
 })
 console.log(`\nsandbox kept at: ${sandboxRoot}`)
-console.log(`  result: ${join(outputDir, 'dsh-github-ci-result.json')}`)
-console.log(`  summary: ${join(outputDir, 'dsh-github-ci-summary.md')}`)
+console.log(`  result: ${join(outputDir, 'dsh-github-bot-ci-result.json')}`)
+console.log(`  summary: ${join(outputDir, 'dsh-github-bot-ci-summary.md')}`)
 console.log(`  logs: ${join(outputDir, 'dsh-github-stdout.log')} / dsh-github-stderr.log`)
 if (options.clean) {
   rmSync(sandboxRoot, { recursive: true, force: true })

@@ -43,7 +43,7 @@ jobs:
       - name: Bare install + import smoke
         run: |
           set -euo pipefail
-          TARBALL="$(ls "$RUNNER_TEMP"/perrylink-dsh-github-bot-*.tgz | head -n1)"
+          TARBALL="$(ls "$RUNNER_TEMP"/dsh-github-bot-*.tgz | head -n1)"
           mkdir -p "$RUNNER_TEMP/bare" && cd "$RUNNER_TEMP/bare"
           pnpm init >/dev/null
           cat > pnpm-workspace.yaml <<'YAML'
@@ -88,7 +88,7 @@ jobs:
       - name: Install into a scratch profile (builds allowlisted)
         run: |
           set -euo pipefail
-          TARBALL="$(ls "$RUNNER_TEMP"/perrylink-dsh-github-bot-*.tgz | head -n1)"
+          TARBALL="$(ls "$RUNNER_TEMP"/dsh-github-bot-*.tgz | head -n1)"
           export DSH_HOME="$RUNNER_TEMP/dsh-home"
           mkdir -p "$DSH_HOME/profiles/compat"
           cat > "$DSH_HOME/profiles/compat/pnpm-workspace.yaml" <<'YAML'
