@@ -7,7 +7,7 @@
 // Writes to $INPUT_OUTPUT_DIR:
 //   dsh-github-bot-ci.cordis.yml — the --patch overlay (Minimal persona + role
 //     line, model selection, sandbox, the minimal bash/editor toolset, and
-//     the dsh-github row with the full ci.* configuration).
+//     the dsh-github-bot row with the full ci.* configuration).
 //   task.txt — the headless task for the selected mode.
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -21,8 +21,8 @@ import { join } from 'node:path'
 const runnerTemp = (process.env.RUNNER_TEMP ?? '').trim()
 const workspace = (process.env.GITHUB_WORKSPACE ?? '').trim()
 if (runnerTemp === '' || workspace === '') {
-  console.error('dsh-github: refusing to run outside a GitHub Actions runner — both RUNNER_TEMP and GITHUB_WORKSPACE must be set.')
-  console.error('dsh-github: to exercise the action locally, use `node scripts/local-test.mjs`; it pins DSH_HOME, DSH_PROFILE_DIR, and the output directory under the system temp directory.')
+  console.error('dsh-github-bot: refusing to run outside a GitHub Actions runner — both RUNNER_TEMP and GITHUB_WORKSPACE must be set.')
+  console.error('dsh-github-bot: to exercise the action locally, use `node scripts/local-test.mjs`; it pins DSH_HOME, DSH_PROFILE_DIR, and the output directory under the system temp directory.')
   process.exit(1)
 }
 
@@ -36,7 +36,7 @@ const pr = env('INPUT_PR').trim()
 const ownerRepo = env('INPUT_OWNER_REPO').trim()
 const model = env('INPUT_MODEL').trim() || 'deepseek-flash'
 const engine = env('INPUT_ENGINE').trim() === 'model' ? 'model' : 'static'
-const checkName = env('INPUT_CHECK_NAME').trim() || 'dsh-github-review'
+const checkName = env('INPUT_CHECK_NAME').trim() || 'dsh-github-bot-review'
 const blocking = boolOf(env('INPUT_BLOCKING'), true)
 const failOn = env('INPUT_FAIL_ON').trim() === 'warning' ? 'warning' : 'error'
 const labelFilters = listOf(env('INPUT_LABEL_FILTERS'))
@@ -45,15 +45,15 @@ const maxDiffChars = Number(env('INPUT_MAX_DIFF_CHARS')) > 0 ? Math.floor(Number
 const postComments = boolOf(env('INPUT_POST_COMMENTS'), true)
 const postCheck = boolOf(env('INPUT_POST_CHECK'), true)
 const requestTimeoutMs = Number(env('INPUT_REQUEST_TIMEOUT_MS')) > 0 ? Math.floor(Number(env('INPUT_REQUEST_TIMEOUT_MS'))) : 30000
-const outputDir = env('INPUT_OUTPUT_DIR').trim() || join(process.env.RUNNER_TEMP ?? '.', 'dsh-github')
+const outputDir = env('INPUT_OUTPUT_DIR').trim() || join(process.env.RUNNER_TEMP ?? '.', 'dsh-github-bot')
 const customTask = env('INPUT_TASK_PROMPT').trim()
 
 if ((task === 'review' || task === 'fix-ci') && pr === '') {
-  console.error('dsh-github: the `pr` input is required for the review and fix-ci tasks (defaults to github.event.pull_request.number on pull_request events)')
+  console.error('dsh-github-bot: the `pr` input is required for the review and fix-ci tasks (defaults to github.event.pull_request.number on pull_request events)')
   process.exit(1)
 }
 if (ownerRepo === '') {
-  console.error('dsh-github: the `owner-repo` input is required (defaults to github.repository)')
+  console.error('dsh-github-bot: the `owner-repo` input is required (defaults to github.repository)')
   process.exit(1)
 }
 
@@ -65,18 +65,18 @@ let taskText
 if (customTask !== '') {
   taskText = customTask
 } else if (task === 'review' && engine === 'static') {
-  taskText = `You are the dsh-github CI reviewer for this repository. Call the ci_run tool once with ${callJson({ task: 'review' })} and then reply with only the verdict and the summary line from its result.`
+  taskText = `You are the dsh-github-bot CI reviewer for this repository. Call the ci_run tool once with ${callJson({ task: 'review' })} and then reply with only the verdict and the summary line from its result.`
 } else if (task === 'review') {
   taskText = `You are a careful software engineer reviewing a GitHub pull request. First call ci_run with ${callJson({ task: 'analyze' })}. Review the diff yourself: correctness, security, style, and maintainability. Then call ci_run with ${callJson({ task: 'publish' })} plus a "body" holding your review (Markdown, verdict first, findings grouped by file) and a "findings" array for line-anchored problems you found. Finish by replying with only the verdict and the summary line from the publish result.`
 } else if (task === 'fix-ci') {
-  taskText = `You are the dsh-github CI engineer for this repository. Investigate the CI failures of PR #${pr} in ${ownerRepo}: read the failing checks with gh_review (fields "ci"), inspect the code with gh_file and gh_repo, and use the bash tool only to read logs or run read-only diagnostics. Do NOT modify files. Write a fix plan as your final answer and call ci_run with ${callJson({ task: 'publish' })} plus a "body" holding that plan so it is posted as a review comment.`
+  taskText = `You are the dsh-github-bot CI engineer for this repository. Investigate the CI failures of PR #${pr} in ${ownerRepo}: read the failing checks with gh_review (fields "ci"), inspect the code with gh_file and gh_repo, and use the bash tool only to read logs or run read-only diagnostics. Do NOT modify files. Write a fix plan as your final answer and call ci_run with ${callJson({ task: 'publish' })} plus a "body" holding that plan so it is posted as a review comment.`
 } else {
-  taskText = `You are the dsh-github CI reporter for this repository. Generate a concise, factual report about ${ownerRepo}${pr !== '' ? ` PR #${pr}` : ''} using the read tools (gh_repo, gh_file, gh_review, gh_search). Write the report as your final answer and, if a pull request is being analyzed, call ci_run with ${callJson({ task: 'publish' })} plus a "body" holding the report so it is posted as a review comment.`
+  taskText = `You are the dsh-github-bot CI reporter for this repository. Generate a concise, factual report about ${ownerRepo}${pr !== '' ? ` PR #${pr}` : ''} using the read tools (gh_repo, gh_file, gh_review, gh_search). Write the report as your final answer and, if a pull request is being analyzed, call ci_run with ${callJson({ task: 'publish' })} plus a "body" holding the report so it is posted as a review comment.`
 }
 
-const personaText = 'You are a helpful software engineer assistant.\nYou are the dsh-github CI assistant for this repository.'
+const personaText = 'You are a helpful software engineer assistant.\nYou are the dsh-github-bot CI assistant for this repository.'
 
-const overlay = `# dsh-github CI overlay — generated by the composite action; every value is
+const overlay = `# dsh-github-bot CI overlay — generated by the composite action; every value is
 # emitted by scripts/action-patch.mjs from the action inputs. Do not edit.
 # Rows that already exist in dsh-base are replaced by id; new rows ride an
 # insert block (non-insert patches only replace existing rows).
@@ -126,7 +126,7 @@ const overlay = `# dsh-github CI overlay — generated by the composite action; 
       config:
         maxOutputChars: 16000
 
-    - id: dsh-github
+    - id: dsh-github-bot
       name: 'dsh-github-bot'
       config:
         tokenSource: env
@@ -149,4 +149,4 @@ const overlay = `# dsh-github CI overlay — generated by the composite action; 
 
 writeFileSync(join(outputDir, 'dsh-github-bot-ci.cordis.yml'), overlay)
 writeFileSync(join(outputDir, 'task.txt'), taskText + '\n')
-console.log(`dsh-github: overlay and task written to ${outputDir} (task: ${task}, engine: ${engine})`)
+console.log(`dsh-github-bot: overlay and task written to ${outputDir} (task: ${task}, engine: ${engine})`)
