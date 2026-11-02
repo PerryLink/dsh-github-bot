@@ -1,8 +1,9 @@
 name: Release
 
 on:
-  push:
-    tags: ['v*']
+  # Manual only for now: tag-triggered publishing needs trusted publishing
+  # configured for the new repository.
+  workflow_dispatch:
 
 jobs:
   publish:
