@@ -40,7 +40,7 @@ if (typeof registrations[0].factory !== 'function') throw new Error('lib/client.
 
 const index = await import(pathToFileURL(path.join(root, 'lib/index.js')).href)
 if ('default' in index) throw new Error('lib/index.js must not carry a default export')
-if (index.name !== 'dsh-github' || typeof index.apply !== 'function') {
+if (index.name !== pkg.name || typeof index.apply !== 'function') {
   throw new Error('lib/index.js exports an unexpected plugin face')
 }
 
