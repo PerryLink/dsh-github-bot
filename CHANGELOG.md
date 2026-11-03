@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.8.1] - 2026-11-03
+
+### Fixed
+
+- **`dsh-github-bot/client` now type-checks for TypeScript consumers.** `exports["./client"].types` pointed at `./lib/types/client.d.ts`, a hand-written declaration the build never emits (and which omitted `GithubCardProps`), so `import type { GithubCardProps } from 'dsh-github-bot/client'` failed with `TS2305: Module '"dsh-github-bot/client"' has no exported member 'GithubCardProps'`. The entry now points at `./lib/client.d.ts`, the declaration `tsc` emits from `src/client.ts`. `prepack` also builds before packing, so a tarball cannot ship stale or missing declarations.
+
 ## [0.8.0] - 2026-11-02
 
 ### Changed
