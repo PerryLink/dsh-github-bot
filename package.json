@@ -31,6 +31,7 @@
   "scripts": {
     "build": "tsc --noEmitOnError && node scripts/fix-dts.mjs && node scripts/bundle-client.mjs",
     "prepare": "node scripts/prepare.mjs",
+    "prepack": "npm run build",
     "prepublishOnly": "npm run build && npm test",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
