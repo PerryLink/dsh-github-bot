@@ -11,7 +11,7 @@
       "import": "./lib/index.js"
     },
     "./client": {
-      "types": "./lib/types/client.d.ts",
+      "types": "./lib/client.d.ts",
       "default": "./lib/client.js"
     },
     "./package.json": "./package.json"
