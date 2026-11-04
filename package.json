@@ -1,6 +1,6 @@
 {
   "name": "dsh-github-bot",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "GitHub PRs, reviews, issues and CI for DeepSeek Harness: approval-gated write tools, a CI composite action, a polling review bot and a status-check gate.",
   "type": "module",
   "main": "lib/index.js",

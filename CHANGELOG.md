@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+
+- Declare `dsh.capabilities` (`tools:register`) and empty `dsh.labels`; the npm artifact was published before the capabilities wave. The context-aware C-12.4 check now ignores the comment/comparison `danger-full-access` literal in the approval gate.
+
+
 ## [0.8.1] - 2026-11-03
 
 ### Fixed
