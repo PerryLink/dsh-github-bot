@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="dsh-github-bot workflow">
+<title>dsh-github-bot workflow</title>
+<rect width="1200" height="420" rx="18" fill="#ffffff"/>
+<text x="60" y="62" fill="#1f2328" font-family="ui-sans-serif,system-ui,sans-serif" font-size="30" font-weight="700">dsh-github-bot</text>
+<text x="60" y="94" fill="#57606a" font-family="ui-monospace,monospace" font-size="16">pr_create · /review · /ci · 15 tools · 4 command families</text>
+<line x1="60" y1="116" x2="1140" y2="116" stroke="#d0d7de"/>
+<rect x="60" y="150" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="150" y="190" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">pr_create</text>
+<text x="150" y="218" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">pr_merge · issue_open</text>
+<path d="M246 198h33" stroke="#57606a" stroke-width="3"/>
+<path d="M277 191l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="285" y="150" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#4B67B4" stroke-width="2"/>
+<text x="375" y="190" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">tools/pre-execute</text>
+<text x="375" y="218" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">ask · deny</text>
+<path d="M471 198h33" stroke="#57606a" stroke-width="3"/>
+<path d="M502 191l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="510" y="150" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="600" y="190" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">ctx.approval</text>
+<text x="600" y="218" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">approval/asked</text>
+<path d="M696 198h33" stroke="#57606a" stroke-width="3"/>
+<path d="M727 191l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="735" y="150" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+<text x="825" y="190" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">api.github.com</text>
+<text x="825" y="218" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">429 → Retry-After</text>
+<path d="M921 198h33" stroke="#57606a" stroke-width="3"/>
+<path d="M952 191l10 7-10 7" fill="none" stroke="#57606a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="960" y="150" width="180" height="96" rx="14" fill="#f6f8fa" stroke="#16a34a" stroke-width="2"/>
+<text x="1050" y="190" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" font-weight="700">gh_checks</text>
+<text x="1050" y="218" fill="#57606a" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12">success | needs-changes</text>
+<path d="M375 246v36" stroke="#4B67B4" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M825 246v36" stroke="#4B67B4" stroke-width="2" stroke-dasharray="5 5"/>
+<rect x="285" y="282" width="630" height="48" rx="12" fill="#f6f8fa" stroke="#4B67B4" stroke-width="2"/>
+<text x="600" y="313" fill="#1f2328" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13">tokenSource: auto · tokenRef: GITHUB_TOKEN · allowedActions · maxRetries: 3</text>
+<text x="60" y="372" fill="#57606a" font-family="ui-monospace,monospace" font-size="13">/review → ctx.jobs → reviewMode: static → review_post</text>
+<text x="60" y="398" fill="#57606a" font-family="ui-monospace,monospace" font-size="13">/ci → action.yml → ci_run → success | needs-changes</text>
+</svg>

@@ -6,7 +6,7 @@
 //    table-of-contents heading itself is exempt from the must-be-referenced
 //    rule: it is the navigation index, not a target.
 // 2. Every tool name in src/tools.ts and every config key in src/config.ts is
-//    mentioned in every README (drift guard for the 5-language docs).
+//    mentioned in every README (drift guard for the zh/en docs).
 // 3. No README pins a versioned tarball name (dsh-github-x.y.z.tgz) — the
 //    tarball channel must stay version-agnostic so it cannot go stale.
 // 4. CHANGELOG.md carries a `## [<version>]` section for package.json's
@@ -17,7 +17,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
-const FILES = ['README.md', 'README-zh.md', 'README-es.md', 'README-pt.md', 'README-hi.md']
+const FILES = ['README.md', 'README.en.md']
 
 /** GitHub-slugger-compatible slug for one heading line (without the `## `). */
 function slug(heading) {
