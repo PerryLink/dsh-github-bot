@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-dark.svg">
-  <img src="docs/assets/dsh-github-bot-flow-light.svg" width="100%" alt="dsh-github-bot वर्कफ़्लो: write टूल → tools/pre-execute अनुमोदन द्वार → ctx.approval → api.github.com; /review ctx.jobs पर और /ci action.yml से चलता है">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-hero-en-dark.webp">
+  <img src="docs/assets/dsh-github-bot-hero-en-light.webp" width="100%" alt="dsh-github-bot स्वीकृत जीवनचक्र: बनाएँ → समीक्षा → अपडेट → मर्ज; हर चरण के साथ उपकरण, क्रिया और REST रूट, और हर लेखन tools/pre-execute द्वार पर मानव के लिए रुकता है; समीक्षा चरण में ctx.jobs विश्लेषक भीतर है; नीचे प्रति-ऑपरेशन token और 429 पुनःप्रयास">
 </picture>
 
 # dsh-github-bot
@@ -37,6 +37,13 @@ dsh plugin --profile <name> add dsh-github-bot
 ## यह क्या है
 
 `dsh-github-bot` एजेंट के लिए GitHub का पूरा चक्र जोड़ता है: पढ़ने वाले काम (repository metadata, files, PR diffs, comments, CI checks, issue/PR खोज) सीधे चलते हैं; लिखने वाले काम (PR बनाना/अपडेट करना/merge करना, review प्रकाशित करना, issue खोलना/टिप्पणी करना/बंद करना, CI review चलाना) हमेशा `ctx.approval` से गुज़रते हैं — डिफ़ॉल्ट `ask`, और उत्तरदाता न हो तो अस्वीकार। GitHub token हर operation पर credentials seam से resolve होता है, केवल Authorization header में भेजा जाता है, और कभी logs, renders, events या errors में नहीं जाता। review engine डिफ़ॉल्ट रूप से deterministic static analyzer है — शून्य token, reproducible; model review के लिए `reviewMode: "model"` host के `subagents` seam से एक one-shot subagent भेजता है। रिपॉज़िटरी में CI composite action, polling review bot और status-check gate भी हैं, ताकि वही verdict CI में भी लागू हो।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-github-bot-flow-v5-light.svg" width="100%" alt="dsh-github-bot संरचना: एक खड़ी विश्वास सीमा; सात पढ़ने वाले उपकरण सीधे api.github.com तक जाते हैं, आठ लिखने वाले सीमा पर लगे tools/pre-execute द्वार पर रुकते हैं, जहाँ allowedActions पहले मना करता है, CI ड्राइवर ci.autoApprove से गुज़रता है और बाकी ctx.approval से पूछते हैं और उत्तरदाता के बिना बंद हो जाते हैं; समीक्षा job और CI लेन नीचे से उसी द्वार पर लौटते हैं, नीचे token रेल है">
+</picture>
+
+*संरचना: दो-पक्षीय विश्वास सीमा — पढ़ना सीधे api.github.com तक जाता है; लेखन खड़ी tools/pre-execute द्वार पर रुकता है, जहाँ allowedActions पहले मना करता है, CI ड्राइवर ci.autoApprove से गुजरता है और बाकी ctx.approval से पूछते हैं और उत्तरदाता के बिना बंद हो जाते हैं; समीक्षा job और CI लेन नीचे से उसी द्वार पर लौटते हैं।*
 
 <details>
 <summary>विषय-सूची</summary>
@@ -348,7 +355,7 @@ pnpm run typecheck       # tsc --noEmit
 pnpm run check:readmes   # README anchors, tools और config keys की जाँच करता है
 ```
 
-अलग docs build नहीं है: README का hero [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से बनता है (हाथ से लिखा SVG, दो skins) और दोबारा चलाया जा सकता है।
+अलग docs build नहीं है: README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से प्रोग्रामेटिक रूप से बनती हैं — hero बैनर के लिए Pillow, सीमा-चित्र के लिए हाथ से लिखा SVG, दोनों हल्के और गहरे रूप में, और स्क्रिप्ट दोबारा चलाई जा सकती है। पुराना `dsh-github-bot-flow-{light,dark}.svg` युग्म और demo चित्र बाहरी लिंक के लिए `docs/assets/` में रहते हैं।
 
 रिपॉज़िटरी संरचना:
 
@@ -369,7 +376,7 @@ src/present.ts        pure UI-card presenters
 test/                 vitest suite + mock host scaffolding + opt-in e2e smoke
 cordis.patch.yml      bundle patch (one insert row)
 scripts/prepare.mjs   self-contained git-install build
-scripts/gen-readme-assets.py  README hero SVG generator
+scripts/gen-readme-assets.py  README visuals (hero webp + boundary SVG)
 ```
 
 विषय: `dsh`, `dsh-plugin`, `deepseek-harness`, `github`, `pull-request`, `code-review`, `issue-tracker`

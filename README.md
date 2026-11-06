@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-dark.svg">
-  <img src="docs/assets/dsh-github-bot-flow-light.svg" width="100%" alt="dsh-github-bot 工作流：写工具 → tools/pre-execute 审批门 → ctx.approval → api.github.com；/review 走 ctx.jobs，/ci 走 action.yml">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-github-bot-hero-zh-light.webp" width="100%" alt="dsh-github-bot 审批生命周期：创建 → 审查 → 更新 → 合并四个写阶段各自标出工具、动作与 REST 路由；每一次写都停在 tools/pre-execute 闸门后等人批准，审查阶段内嵌 ctx.jobs 分析器；底部是逐操作 token 与 429 重试">
 </picture>
 
 # dsh-github-bot
@@ -37,6 +37,13 @@ dsh plugin --profile <name> add dsh-github-bot
 ## 它是什么
 
 `dsh-github-bot` 把 GitHub 接进 agent 的完整回路：读操作（仓库元数据、文件、PR diff、评论、CI 检查、issue/PR 搜索）直接可用；写操作（创建/更新/合并 PR、发布审查、开/评论/关 issue、跑 CI 审查）一律经 `ctx.approval`——默认 `ask`，没有应答者就拒绝。GitHub token 逐操作从凭证接缝解析，只出现在 Authorization 头里，不进日志、渲染、事件或错误。审查引擎默认是确定性静态分析器，零 token、可复现；要模型审查时 `reviewMode: "model"` 走宿主的 `subagents` 接缝。仓库另附 CI 复合动作、轮询式审查机器人与状态检查门禁，让同一套判定在 CI 里也成立。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-github-bot-flow-v5-light.svg" width="100%" alt="dsh-github-bot 结构图：一条竖立的信任边界，七个读工具直接穿过去到 api.github.com，八个写工具停在边界上的 tools/pre-execute 闸门——allowedActions 先否决、CI driver 经 ci.autoApprove、其余 ask 交给 ctx.approval、无应答者即拒绝；后台审查 job 分析完再经同一道闸回写，底部是 CI 支线与 token 轨道">
+</picture>
+
+*结构：信任边界双侧 —— 读通道直穿到 api.github.com；写通道停在竖立的 tools/pre-execute 闸门上，allowedActions 先否决，CI driver 经 ci.autoApprove 放行，其余 ask 交给 ctx.approval，无应答者即拒绝；后台审查 job 与 CI 支线都从下方回到同一道闸。*
 
 <details>
 <summary>目录</summary>
@@ -348,7 +355,7 @@ pnpm run typecheck       # tsc --noEmit
 pnpm run check:readmes   # 交叉检查 README 的目录锚点、工具与配置键
 ```
 
-无独立文档构建步骤：README 的 hero 由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（手写 SVG，双配色），可重复执行。
+无独立文档构建步骤：README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成——hero 横幅用 Pillow 画、边界结构图用手写 SVG 画，各含深浅双版，可重复执行；旧版 `dsh-github-bot-flow-{light,dark}.svg` 与 `dsh-github-hero.png` 等图保留在 `docs/assets/` 供外链使用。
 
 目录布局：
 
@@ -369,7 +376,7 @@ src/present.ts        pure UI-card presenters
 test/                 vitest suite + mock host scaffolding + opt-in e2e smoke
 cordis.patch.yml      bundle patch (one insert row)
 scripts/prepare.mjs   self-contained git-install build
-scripts/gen-readme-assets.py  README hero SVG generator
+scripts/gen-readme-assets.py  README visuals (hero webp + boundary SVG)
 ```
 
 Topics：`dsh`, `dsh-plugin`, `deepseek-harness`, `github`, `pull-request`, `code-review`, `issue-tracker`

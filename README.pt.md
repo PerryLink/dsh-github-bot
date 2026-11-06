@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-dark.svg">
-  <img src="docs/assets/dsh-github-bot-flow-light.svg" width="100%" alt="Fluxo do dsh-github-bot: ferramenta de gravação → barreira de aprovação tools/pre-execute → ctx.approval → api.github.com; /review roda em ctx.jobs e /ci via action.yml">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-hero-en-dark.webp">
+  <img src="docs/assets/dsh-github-bot-hero-en-light.webp" width="100%" alt="dsh-github-bot ciclo de vida aprovado: criar → revisar → atualizar → mesclar, cada etapa com a sua ferramenta, ação e rota REST, e cada escrita parada diante de uma pessoa na porta tools/pre-execute; a revisão traz dentro o analisador de ctx.jobs; em baixo, o token por operação e a repetição 429">
 </picture>
 
 # dsh-github-bot
@@ -37,6 +37,13 @@ dsh plugin --profile <name> add dsh-github-bot
 ## O que é
 
 `dsh-github-bot` fecha o circuito do GitHub para o agente: as leituras (metadados do repositório, arquivos, diffs de PR, comentários, checks de CI, busca de issues/PRs) funcionam direto; as gravações (criar/atualizar/mesclar uma PR, publicar uma revisão, abrir/comentar/fechar um issue, rodar uma revisão de CI) passam sempre por `ctx.approval` — `ask` por padrão e negação sem respondedor. O token do GitHub é resolvido por operação na camada de credenciais, enviado só no cabeçalho Authorization e nunca entra em logs, renderizações, eventos ou erros. O motor de revisão é um analisador estático determinístico por padrão — zero tokens, reproduzível; `reviewMode: "model"` passa para um subagente de uso único pela seam `subagents` do host. O repositório ainda inclui uma ação composta de CI, um bot de revisão por polling e uma barreira de status-check para que o mesmo veredito valha no CI.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-github-bot-flow-v5-light.svg" width="100%" alt="dsh-github-bot estrutura: uma fronteira de confiança vertical; as sete ferramentas de leitura atravessam direto para api.github.com, as oito de escrita param na porta tools/pre-execute montada na fronteira, onde allowedActions nega primeiro, o driver de CI passa por ci.autoApprove e o resto pergunta a ctx.approval e fecha sem respondente; o job de revisão e a faixa de CI voltam à mesma porta por baixo, com o trilho do token no rodapé">
+</picture>
+
+*Estrutura: fronteira de confiança de dois lados — a leitura atravessa direto para api.github.com; a escrita para na porta vertical tools/pre-execute, onde allowedActions nega primeiro, o driver de CI passa por ci.autoApprove e o resto pergunta a ctx.approval e fecha sem respondente; o job de revisão e a faixa de CI voltam à mesma porta por baixo.*
 
 <details>
 <summary>Conteúdo</summary>
@@ -348,7 +355,7 @@ pnpm run typecheck       # tsc --noEmit
 pnpm run check:readmes   # cruza âncoras de README, ferramentas e chaves de configuração
 ```
 
-Não há build de documentação separado: a capa do README é gerada por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (SVG escrito à mão, duas skins) e pode ser reexecutada.
+Não há build de documentação separado: as imagens do README são geradas por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) — Pillow para as capas, SVG escrito à mão para a figura de fronteira, cada uma em claro e escuro, e pode ser reexecutada. O par antigo `dsh-github-bot-flow-{light,dark}.svg` e as imagens de demonstração ficam em `docs/assets/` para links externos.
 
 Estrutura do repositório:
 
@@ -369,7 +376,7 @@ src/present.ts        pure UI-card presenters
 test/                 vitest suite + mock host scaffolding + opt-in e2e smoke
 cordis.patch.yml      bundle patch (one insert row)
 scripts/prepare.mjs   self-contained git-install build
-scripts/gen-readme-assets.py  README hero SVG generator
+scripts/gen-readme-assets.py  README visuals (hero webp + boundary SVG)
 ```
 
 Tópicos: `dsh`, `dsh-plugin`, `deepseek-harness`, `github`, `pull-request`, `code-review`, `issue-tracker`

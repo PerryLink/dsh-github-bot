@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-labelledby="fig-title">
+<title id="fig-title">dsh-github-bot — the trust boundary: seven read tools cross the seam directly to api.github.com; the eight write tools stop at the tools/pre-execute gate, where allowedActions denies unknown actions before the prompt, the CI driver is allowed through ci.autoApprove, and everything else asks ctx.approval and fails closed without an answerer; the background review job returns through the same gate to post; the CI lane runs underneath; the token only ever travels in the Authorization header</title>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9f6fd"/><stop offset="1" stop-color="#e4eaf8"/></linearGradient>
+<filter id="soft" x="-30%" y="-30%" width="170%" height="185%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#1b1735" flood-opacity="0.13"/></filter>
+<marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0.5 0.5 L9.5 5 L0.5 9.5 z" fill="#4B67B4"/></marker>
+<marker id="arra" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0.5 0.5 L9.5 5 L0.5 9.5 z" fill="#a3681a"/></marker>
+<marker id="arrf" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0.5 0.5 L9.5 5 L0.5 9.5 z" fill="#8a8fa2"/></marker>
+</defs>
+<rect width="1100" height="660" rx="22" fill="url(#bg)"/>
+<circle cx="1010" cy="66" r="210" fill="#4B67B4" opacity="0.05"/>
+<text x="44" y="50" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start">dsh-github-bot · the trust boundary</text>
+<text x="44" y="78" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="400" text-anchor="start">reads cross the seam directly; every write stops for a human</text>
+<text x="1056" y="50" fill="#8a8fa2" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="400" text-anchor="end">src/approval-gate.ts · registerApprovalGate()</text>
+<text x="1056" y="78" fill="#4B67B4" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="13" font-weight="400" text-anchor="end">8 gated writes · 7 direct reads · 4 command families</text>
+<line x1="44" y1="100" x2="1056" y2="100" stroke="#ece8f5" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="528" y="112" width="44" height="336" rx="14" fill="#4B67B4" opacity="0.09"/>
+<line x1="536" y1="118" x2="536" y2="446" stroke="#7d91c9" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="564" y1="118" x2="564" y2="446" stroke="#7d91c9" stroke-width="1.4" stroke-linecap="round"/>
+<line x1="550" y1="118" x2="550" y2="446" stroke="#b7c2e1" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="3 7"/>
+<text x="550" y="182" fill="#4c5160" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" letter-spacing="2.4" text-anchor="middle" transform="rotate(-90 550 182)">TRUST BOUNDARY</text>
+<g filter="url(#soft)"><rect x="44" y="116" width="376" height="96" rx="18" fill="#ffffff" stroke="#e5e0f2" stroke-width="1.5"/></g>
+<text x="64" y="142" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">human commands · 4 families</text>
+<text x="400" y="143" fill="#8a8fa2" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="end">never write</text>
+<text x="64" y="166" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">/pr create · /review · /issue open · /ci</text>
+<text x="64" y="190" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">gather read-only context, then queue a turn</text>
+<text x="64" y="206" fill="#8a8fa2" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">the model writes in its own turn, through the gate</text>
+<g filter="url(#soft)"><rect x="44" y="226" width="376" height="76" rx="18" fill="#ffffff" stroke="#e5e0f2" stroke-width="1.5"/></g>
+<text x="64" y="252" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">read tools · 7 · direct</text>
+<text x="400" y="253" fill="#4B67B4" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="end">ungated</text>
+<text x="64" y="276" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">gh_review · gh_issue · gh_search · gh_repo</text>
+<text x="64" y="295" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">gh_file · gh_repo_search · gh_checks</text>
+<g filter="url(#soft)"><rect x="44" y="316" width="376" height="132" rx="18" fill="#ffffff" stroke="#d1b38c" stroke-width="1.7"/></g>
+<text x="64" y="342" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">write tools · 8 · gated</text>
+<text x="400" y="343" fill="#a3681a" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="end">ask</text>
+<text x="64" y="366" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">pr_create · pr_update · pr_merge</text>
+<text x="64" y="385" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">review_post · issue_open · issue_comment</text>
+<text x="64" y="404" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">issue_close · ci_run</text>
+<text x="64" y="432" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">allowedActions decides before the prompt runs</text>
+<g filter="url(#soft)"><rect x="452" y="316" width="248" height="132" rx="18" fill="#ffffff" stroke="#a3681a" stroke-width="2"/></g>
+<text x="472" y="342" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">tools/pre-execute</text>
+<text x="680" y="343" fill="#a3681a" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="end">gate</text>
+<text x="472" y="368" fill="#4c5160" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="start">allowedActions → deny</text>
+<text x="472" y="386" fill="#4c5160" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="start">CI driver → allow</text>
+<text x="472" y="404" fill="#17151f" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="start">else ask → ctx.approval</text>
+<text x="472" y="422" fill="#4c5160" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="start">no answerer → fail closed</text>
+<text x="472" y="441" fill="#8a8fa2" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">approval/asked · approval/decided</text>
+<path d="M420 264h300" fill="none" stroke="#4B67B4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arr)"/>
+<text x="424" y="254" fill="#4B67B4" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">direct</text>
+<text x="582" y="254" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">no approval</text>
+<path d="M420 382h28" fill="none" stroke="#a3681a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arra)"/>
+<path d="M700 382h32" fill="none" stroke="#a3681a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arra)"/>
+<g filter="url(#soft)"><rect x="736" y="116" width="320" height="96" rx="18" fill="#ffffff" stroke="#e5e0f2" stroke-width="1.5"/></g>
+<text x="756" y="142" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">token · per operation</text>
+<text x="1036" y="143" fill="#8a8fa2" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="end">never logged</text>
+<text x="756" y="166" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">credentials → env → gh</text>
+<text x="756" y="190" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">only the Authorization header carries it</text>
+<text x="756" y="206" fill="#8a8fa2" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">results, events and errors never see the value</text>
+<g filter="url(#soft)"><rect x="736" y="226" width="320" height="76" rx="18" fill="#ffffff" stroke="#e5e0f2" stroke-width="1.5"/></g>
+<text x="756" y="252" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">api.github.com · GET</text>
+<text x="756" y="276" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">429 → Retry-After · quota visible</text>
+<text x="756" y="295" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">the canonical value returns as tool/result</text>
+<g filter="url(#soft)"><rect x="736" y="316" width="320" height="132" rx="18" fill="#ffffff" stroke="#d1b38c" stroke-width="1.7"/></g>
+<text x="756" y="342" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">writes land here</text>
+<text x="1036" y="343" fill="#8a8fa2" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="end">REST</text>
+<text x="756" y="366" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">PR create · update · merge</text>
+<text x="756" y="385" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">review comments · summary | inline</text>
+<text x="756" y="404" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">issue open · comment · close</text>
+<text x="756" y="430" fill="#4c5160" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="start">status check · success | needs-changes</text>
+<path d="M480 474V452" fill="none" stroke="#a3681a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 5" marker-end="url(#arra)"/>
+<text x="490" y="468" fill="#a3681a" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="start">review_post</text>
+<g filter="url(#soft)"><rect x="44" y="474" width="456" height="106" rx="18" fill="#ffffff" stroke="#b3bfdf" stroke-width="1.6"/></g>
+<text x="64" y="500" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">background review job</text>
+<text x="480" y="501" fill="#4B67B4" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="end">ctx.jobs</text>
+<text x="64" y="524" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">/review &lt;pr&gt; → github-review → static analyzer</text>
+<text x="64" y="543" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">reviewMode: static | model · maxDiffChars 8000</text>
+<text x="64" y="566" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">report stays in memory · the job itself never writes</text>
+<g filter="url(#soft)"><rect x="540" y="474" width="516" height="106" rx="18" fill="#ffffff" stroke="#e5e0f2" stroke-width="1.5"/></g>
+<text x="560" y="500" fill="#17151f" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="15" font-weight="700" text-anchor="start">CI lane · action.yml composite</text>
+<text x="1036" y="501" fill="#a3681a" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="end">ci_run</text>
+<text x="560" y="524" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">dsh headless → label/path filters → capped diff</text>
+<text x="560" y="543" fill="#323139" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="start">inline comments + status check → result.json / summary.md</text>
+<text x="560" y="566" fill="#4c5160" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">idempotent per head commit · ci.autoApprove is the allowlist</text>
+<text x="44" y="602" fill="#4B67B4" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="400" text-anchor="start">token: credentials seam → env → gh, resolved per operation · only ever the Authorization header</text>
+<text x="44" y="622" fill="#4c5160" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11.5" font-weight="400" text-anchor="start">429 → Retry-After / x-ratelimit-reset · requestTimeoutMs 30 s · remaining quota on every result</text>
+<text x="44" y="642" fill="#8a8fa2" font-family="Segoe UI, Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif" font-size="11" font-weight="400" text-anchor="start">the gate delegates every other tool through next() · Apache-2.0 · PerryLink DSH plugin family</text>
+<text x="1056" y="642" fill="#8a8fa2" font-family="Consolas, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="400" text-anchor="end">scripts/gen-readme-assets.py</text>
+</svg>

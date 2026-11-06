@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-dark.svg">
-  <img src="docs/assets/dsh-github-bot-flow-light.svg" width="100%" alt="Flujo de dsh-github-bot: herramienta de escritura → puerta de aprobación tools/pre-execute → ctx.approval → api.github.com; /review corre en ctx.jobs y /ci por action.yml">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-hero-en-dark.webp">
+  <img src="docs/assets/dsh-github-bot-hero-en-light.webp" width="100%" alt="dsh-github-bot ciclo de vida con aprobación: crear → revisar → actualizar → fusionar, cada etapa con su herramienta, acción y ruta REST, y cada escritura detenida ante una persona en la puerta tools/pre-execute; la revisión lleva dentro el analizador de ctx.jobs; abajo, el token por operación y el reintento 429">
 </picture>
 
 # dsh-github-bot
@@ -37,6 +37,13 @@ dsh plugin --profile <name> add dsh-github-bot
 ## Qué es
 
 `dsh-github-bot` cierra el circuito de GitHub para el agente: las lecturas (metadatos del repositorio, archivos, diffs de PR, comentarios, checks de CI, búsqueda de issues/PRs) funcionan directamente; las escrituras (crear/actualizar/fusionar una PR, publicar una revisión, abrir/comentar/cerrar un issue, ejecutar una revisión de CI) pasan siempre por `ctx.approval`: `ask` por defecto y denegación sin respondedor. El token de GitHub se resuelve por operación desde la capa de credenciales, se envía solo en la cabecera Authorization y nunca entra en registros, representaciones, eventos ni errores. El motor de revisión es un analizador estático determinista por defecto —cero tokens, reproducible—; `reviewMode: "model"` pasa a un subagente de un solo uso por la seam `subagents` del host. El repositorio incluye además una acción compuesta de CI, un bot de revisión por sondeo y una puerta de status-check para que el mismo veredicto valga también en CI.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-github-bot-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-github-bot-flow-v5-light.svg" width="100%" alt="dsh-github-bot estructura: una frontera de confianza vertical; las siete herramientas de lectura la cruzan directas a api.github.com, las ocho de escritura se detienen en la puerta tools/pre-execute montada en la frontera, donde allowedActions deniega primero, el driver de CI pasa por ci.autoApprove y el resto pregunta a ctx.approval y se cierra sin respondiente; el job de revisión y el carril de CI vuelven a la misma puerta desde abajo, con el carril del token al pie">
+</picture>
+
+*Estructura: frontera de confianza de dos lados — la lectura cruza directa a api.github.com; la escritura se detiene en la puerta vertical tools/pre-execute, donde allowedActions deniega primero, el driver de CI pasa por ci.autoApprove y el resto pregunta a ctx.approval y se cierra sin respondiente; el job de revisión y el carril de CI vuelven a la misma puerta desde abajo.*
 
 <details>
 <summary>Contenido</summary>
@@ -348,7 +355,7 @@ pnpm run typecheck       # tsc --noEmit
 pnpm run check:readmes   # cruza anclas de README, herramientas y claves de configuración
 ```
 
-No hay compilación de documentación aparte: la portada del README la genera [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (SVG escrito a mano, dos pieles) y se puede volver a ejecutar.
+No hay compilación de documentación aparte: las imágenes del README las genera [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) — Pillow para las portadas, SVG escrito a mano para la figura de frontera, cada una en claro y oscuro, y se puede volver a ejecutar. El par antiguo `dsh-github-bot-flow-{light,dark}.svg` y las imágenes de demostración permanecen en `docs/assets/` para enlaces externos.
 
 Estructura del repositorio:
 
@@ -369,7 +376,7 @@ src/present.ts        pure UI-card presenters
 test/                 vitest suite + mock host scaffolding + opt-in e2e smoke
 cordis.patch.yml      bundle patch (one insert row)
 scripts/prepare.mjs   self-contained git-install build
-scripts/gen-readme-assets.py  README hero SVG generator
+scripts/gen-readme-assets.py  README visuals (hero webp + boundary SVG)
 ```
 
 Temas: `dsh`, `dsh-plugin`, `deepseek-harness`, `github`, `pull-request`, `code-review`, `issue-tracker`
