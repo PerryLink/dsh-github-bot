@@ -13,6 +13,10 @@
  * @module dsh-github-bot/approval-gate
  */
 import type { Context } from '@deepseek-ai/cordis'
+// The approval service augments the cordis Context; the empty type-only import
+// keeps that augmentation in the program even when this file never names the
+// service type directly.
+import type {} from '@deepseek-ai/dsh-user-approval'
 import type { PreToolDecision, ToolExecution } from '@deepseek-ai/dsh-tools'
 import type { GithubAction } from './config.ts'
 import type { GithubState } from './state.ts'

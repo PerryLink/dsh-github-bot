@@ -9,6 +9,7 @@
 import { Context, type Fiber } from '@deepseek-ai/cordis'
 import { ToolCallId } from '@deepseek-ai/dsh-llm'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
 import { describe, expect, it } from 'vitest'
 import { applyWithDeps, Config, type PluginConfig } from '../src/index.ts'
 import { MockApproval, MockCommands, MockCredentials, MockJobs, TOKEN, jsonResponse, stubFetch } from './helpers.ts'
@@ -31,6 +32,9 @@ async function mountRuntime() {
   const ctx = new Context()
   ctx.provide('systemPrompt', { tools: () => () => undefined, section: () => () => undefined } as never)
   await ctx.plugin(ToolRuntime)
+  // 0.2.2 moved the actual call execution behind an executor plugin; the host
+  // mounts the native one, so the test composition must do the same.
+  await ctx.plugin(NativeToolExecutor)
   ctx.provide('commands', new MockCommands())
   ctx.provide('jobs', new MockJobs())
   ctx.provide('approval', new MockApproval())
@@ -74,12 +78,13 @@ describe('gh_repo tool three interfaces', () => {
       expect(output.oneOf).toHaveLength(2)
 
       // 2+3. One execution yields the canonical value AND the rendered content.
-      const result = await ctx.tools.execute({
-        callId: ToolCallId('dsh-github-bot-three-interfaces'),
-        name: 'gh_repo',
-        arguments: { ownerRepo: 'o/r' },
+      // 0.2.2 turned `tools.execute` into a batch API: one call block in, an
+      // ordered `results` array out.
+      const batch = await ctx.tools.execute({
+        calls: [{ type: 'tool-call', id: ToolCallId('dsh-github-bot-three-interfaces'), name: 'gh_repo', arguments: JSON.stringify({ ownerRepo: 'o/r' }) }],
         signal: new AbortController().signal,
       })
+      const result = batch.results[0]!.result
       expect(result.isError).toBe(false)
       expect(result.value).toEqual({
         repo: 'o/r',
@@ -114,6 +119,7 @@ describe('gh_repo tool three interfaces', () => {
     const ctx = new Context()
     ctx.provide('systemPrompt', { tools: () => () => undefined, section: () => () => undefined } as never)
     await ctx.plugin(ToolRuntime)
+    await ctx.plugin(NativeToolExecutor)
     ctx.provide('commands', new MockCommands())
     ctx.provide('jobs', new MockJobs())
     ctx.provide('approval', new MockApproval())
@@ -133,12 +139,11 @@ describe('gh_repo tool three interfaces', () => {
       }),
     }, config)
     try {
-      const result = await ctx.tools.execute({
-        callId: ToolCallId('dsh-github-bot-three-interfaces-error'),
-        name: 'gh_repo',
-        arguments: { ownerRepo: 'o/r' },
+      const batch = await ctx.tools.execute({
+        calls: [{ type: 'tool-call', id: ToolCallId('dsh-github-bot-three-interfaces-error'), name: 'gh_repo', arguments: JSON.stringify({ ownerRepo: 'o/r' }) }],
         signal: new AbortController().signal,
       })
+      const result = batch.results[0]!.result
       expect(result.isError).toBe(false)
       expect(result.value).toEqual(expect.objectContaining({ status: 'error' }))
       expect(result.value).toHaveProperty('message')
