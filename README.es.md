@@ -328,7 +328,7 @@ Evidencia estática: `dsh-plugin-doctor` K10–K13 dan `pass` en todas las compr
 
 | Superficie | Estado |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.2.1-rc.2` (verificado 2026-10-18): `engines.dsh >=0.2.1-0 <0.3.0`; las rutas de compatibilidad P0 tienen pruebas de regresión. |
+| Harness | DeepSeek Harness `dsh-v0.2.2-rc.4` (verificado 2026-11-18): `engines.dsh >=0.2.1-0 <0.3.0 || >=0.2.2-0 <0.3.0`; las rutas de compatibilidad P0 tienen pruebas de regresión. |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Plataformas | Todas (plugin host; red saliente a GitHub) |
 | Modelo | Cualquiera (la revisión estática es determinista; `reviewMode: "model"` es opcional) |
