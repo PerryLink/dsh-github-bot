@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.1] - 2026-11-21
+
+### Changed
+
+- **Release pipeline: tag-triggered publishing through npm Trusted Publishing (OIDC).** `release.yml` now also runs on `v*` tag pushes (keeping `workflow_dispatch`), upgrades npm to ≥ 11.5.1 and prints the registry/OIDC state before publishing, and publishes with `--provenance` using the workflow's `id-token: write` permission instead of a long-lived `NPM_TOKEN`. No runtime, API, or package-content changes; this patch exists to validate and enable the automated release channel after the trusted-publisher was configured for `dsh-github-bot` on npm.
+
 ## [0.9.0] - 2026-11-21
 
 ### Added

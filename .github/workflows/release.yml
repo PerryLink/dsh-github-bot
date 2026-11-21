@@ -1,16 +1,16 @@
 name: Release
 
 on:
-  # Manual only for now: tag-triggered publishing needs trusted publishing
-  # configured for the new repository.
   workflow_dispatch:
+  push:
+    tags: ['v*']
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
+      id-token: write        # npm trusted publishing (OIDC); no long-lived NPM_TOKEN
     steps:
       - uses: actions/checkout@v7
 
@@ -22,6 +22,11 @@ jobs:
         with:
           node-version: 24
           cache: pnpm
+          # No `registry-url` on purpose: it writes
+          # `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}` into a local
+          # .npmrc, and with no long-lived token that line is an EMPTY bearer
+          # token - the registry then answers 404 on PUT instead of letting npm
+          # perform the OIDC trusted-publishing exchange.
 
       - name: Install
         run: pnpm install --frozen-lockfile
@@ -39,17 +44,31 @@ jobs:
       - name: Verify the changelog names this version
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          grep -q "## \[${VERSION}\]" CHANGELOG.md || { echo "CHANGELOG.md has no '## [${VERSION}]' section"; exit 1; }
+          grep -q "## \[${VERSION}\]" CHANGELOG.md || { echo "CHANGELOG.md has no section for ${VERSION}"; exit 1; }
+
+      # Trusted publishing: the OIDC token (id-token: write above) replaces a
+      # long-lived NPM_TOKEN. npm >= 11.5.1 is required for the exchange.
+      - name: Upgrade npm and show what the publish will authenticate with
+        run: |
+          npm install -g npm@^11.5.1
+          echo "npm: $(npm --version)"
+          echo "registry: $(npm config get registry)"
+          if [ -f .npmrc ]; then echo "--- workspace .npmrc ---"; cat .npmrc; else echo "no workspace .npmrc"; fi
+          if [ -n "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then echo "OIDC request TOKEN: present"; else echo "OIDC request TOKEN: MISSING"; fi
 
       - name: Publish to npm
+        env:
+          # npm's OIDC exchange never throws: a failure is only visible at verbose
+          # level, otherwise the step just fails with ENEEDAUTH and no reason.
+          NPM_CONFIG_LOGLEVEL: verbose
         run: |
           version="$(node -p "require('./package.json').version")"
           if npm view "dsh-github-bot@${version}" version >/dev/null 2>&1; then
             echo "dsh-github-bot@${version} is already published; skipping npm publish"
           else
-            # See the guard above: npm's read side can lag a successful publish, so a re-pushed
-            # tag can miss it and hit E409 ("Cannot publish over previously staged version"). That
-            # means the version already exists, so report it as done instead of failing the job.
+            # The registry read side can lag a successful publish, so a re-pushed tag
+            # can hit E409 ("Cannot publish over previously staged version"). That
+            # means the version already exists, so report it as done.
             set +e
             out="$(npm publish --access public --provenance 2>&1)"
             status=$?
