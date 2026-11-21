@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-github-bot
   <img src="docs/assets/dsh-github-bot-flow-v5-light.svg" width="100%" alt="dsh-github-bot estructura: una frontera de confianza vertical; las siete herramientas de lectura la cruzan directas a api.github.com, las ocho de escritura se detienen en la puerta tools/pre-execute montada en la frontera, donde allowedActions deniega primero, el driver de CI pasa por ci.autoApprove y el resto pregunta a ctx.approval y se cierra sin respondiente; el job de revisión y el carril de CI vuelven a la misma puerta desde abajo, con el carril del token al pie">
 </picture>
 
+![dsh-github-bot: ejecución real de terminal](docs/assets/dsh-github-demo.gif)
+
+*Repetición animada de una ejecución real registrada en este repositorio.*
+
+
 *Estructura: frontera de confianza de dos lados — la lectura cruza directa a api.github.com; la escritura se detiene en la puerta vertical tools/pre-execute, donde allowedActions deniega primero, el driver de CI pasa por ci.autoApprove y el resto pregunta a ctx.approval y se cierra sin respondiente; el job de revisión y el carril de CI vuelven a la misma puerta desde abajo.*
 
 <details>

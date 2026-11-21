@@ -36,6 +36,10 @@ dsh plugin --profile <name> add dsh-github-bot
 
 ## 它是什么
 
+![dsh-github-bot 真实终端运行](docs/assets/dsh-github-demo.gif)
+
+*本仓库一次真实运行的动图回放。*
+
 `dsh-github-bot` 把 GitHub 接进 agent 的完整回路：读操作（仓库元数据、文件、PR diff、评论、CI 检查、issue/PR 搜索）直接可用；写操作（创建/更新/合并 PR、发布审查、开/评论/关 issue、跑 CI 审查）一律经 `ctx.approval`——默认 `ask`，没有应答者就拒绝。GitHub token 逐操作从凭证接缝解析，只出现在 Authorization 头里，不进日志、渲染、事件或错误。审查引擎默认是确定性静态分析器，零 token、可复现；要模型审查时 `reviewMode: "model"` 走宿主的 `subagents` 接缝。仓库另附 CI 复合动作、轮询式审查机器人与状态检查门禁，让同一套判定在 CI 里也成立。
 
 <picture>

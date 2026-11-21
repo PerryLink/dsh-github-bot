@@ -141,6 +141,10 @@ dsh plugin --profile <name> add dsh-github-bot
 
 ### Examples
 
+![dsh-github-bot: real terminal run](docs/assets/dsh-github-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 These are the plugin's real entry points; install once, then call one.
 
 **Detailed example** — tool `pr_create`, input:
