@@ -1,11 +1,11 @@
 import type { CommandDefinition, CommandsService, JobRegistry } from './types.js';
 import type { GithubState } from './state.js';
-/** Register the /pr command family. */
-export declare function registerPrCommand(commands: CommandsService, state: GithubState): () => void;
-/** Register the /review command family. */
-export declare function registerReviewCommand(commands: CommandsService, jobs: JobRegistry, state: GithubState): () => void;
-/** Register the /issue command family. */
-export declare function registerIssueCommand(commands: CommandsService, state: GithubState): () => void;
+/** Register the /pr command family under `name`. */
+export declare function registerPrCommand(commands: CommandsService, state: GithubState, name?: string): () => void;
+/** Register the /review command family under `name`. */
+export declare function registerReviewCommand(commands: CommandsService, jobs: JobRegistry, state: GithubState, name?: string): () => void;
+/** Register the /issue command family under `name`. */
+export declare function registerIssueCommand(commands: CommandsService, state: GithubState, name?: string): () => void;
 /** Register all three command families; returns the combined disposer. */
 export declare function registerCommands(commands: CommandsService, jobs: JobRegistry, state: GithubState): () => void;
 export type { CommandDefinition };

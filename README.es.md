@@ -200,13 +200,16 @@ Claves más usadas:
 | `tokenRef` | `GITHUB_TOKEN` | Referencia de la capa de credenciales / nombre de la variable de entorno |
 | `defaultOwnerRepo` | — | `owner/repo` de respaldo cuando una llamada no indica ninguno y git no tiene origen |
 | `autoCommit` | `false` | Si `/pr create` puede indicar al modelo que haga commit+push primero |
+| `prCommandName` | `pr` | Nombre del comando /pr; si está ocupado, se usa `gh-<name>` |
+| `reviewCommandName` | `review` | Nombre del comando /review; si está ocupado, se usa `gh-<name>` |
+| `issueCommandName` | `issue` | Nombre del comando /issue; si está ocupado, se usa `gh-<name>` |
 | `maxDiffChars` | `8000` | Límite de caracteres para los diffs de PR leídos en las revisiones |
 | `reviewMode` | `static` | Motor de revisión: `static` (analizador determinista) o `model` (subagente de un solo uso por la seam `subagents` del host; falla de forma evidente si la seam no está presente) |
 | `allowedActions` | `8 acciones de escritura` | Lista blanca de acciones de escritura; cualquier otra se deniega antes de la aprobación |
 | `ci` | `{ enabled: false, … }` | Sección de integración CI: bot de revisión por sondeo, puerta de status-check y la herramienta de un solo uso `ci_run` (contiene todas las claves `ci.*`) |
 
 <details>
-<summary>Tabla completa de configuración (22 claves)</summary>
+<summary>Tabla completa de configuración (25 claves)</summary>
 
 | Clave | Por defecto | Significado |
 |---|---|---|

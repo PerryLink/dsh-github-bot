@@ -200,13 +200,16 @@ created pull request #7: https://github.com/o/r/pull/7 (main ← feat/shiny)
 | `tokenRef` | `GITHUB_TOKEN` | Credential-seam reference / environment-variable नाम |
 | `defaultOwnerRepo` | — | जब कोई call कोई नाम न दे और git के पास कोई origin न हो तो fallback `owner/repo` |
 | `autoCommit` | `false` | क्या `/pr create` model को पहले commit+push करने का निर्देश दे सकता है |
+| `prCommandName` | `pr` | PR परिवार का स्लैश कमांड नाम; नाम पहले से लिया हो तो `gh-<name>` |
+| `reviewCommandName` | `review` | समीक्षा परिवार का स्लैश कमांड नाम; नाम पहले से लिया हो तो `gh-<name>` |
+| `issueCommandName` | `issue` | issue परिवार का स्लैश कमांड नाम; नाम पहले से लिया हो तो `gh-<name>` |
 | `maxDiffChars` | `8000` | reviews में पढ़े जाने वाले PR diffs की character सीमा |
 | `reviewMode` | `static` | Review engine: `static` (deterministic analyzer) या `model` (host के `subagents` seam से one-shot subagent; seam अनुपस्थित होने पर fail loud) |
 | `allowedActions` | `8 write actions` | Write-action whitelist; बाकी सब approval से पहले अस्वीकार |
 | `ci` | `{ enabled: false, … }` | CI integration section: polling review bot, status-check gate और one-shot `ci_run` tool (सभी `ci.*` keys इसी में हैं) |
 
 <details>
-<summary>पूरी कॉन्फ़िगरेशन तालिका (22 keys)</summary>
+<summary>पूरी कॉन्फ़िगरेशन तालिका (25 keys)</summary>
 
 | कुंजी | डिफ़ॉल्ट | अर्थ |
 |---|---|---|

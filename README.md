@@ -200,13 +200,16 @@ created pull request #7: https://github.com/o/r/pull/7 (main ← feat/shiny)
 | `tokenRef` | `GITHUB_TOKEN` | 凭证接缝引用名 / 环境变量名 |
 | `defaultOwnerRepo` | — | 调用未指定且 git 无 origin 时的兜底 `owner/repo` |
 | `autoCommit` | `false` | `/pr create` 是否允许指示模型先 commit+push |
+| `prCommandName` | `pr` | `/pr` 命令名；已被占用时自动回退为 `gh-<name>` |
+| `reviewCommandName` | `review` | `/review` 命令名；已被占用时自动回退为 `gh-<name>` |
+| `issueCommandName` | `issue` | `/issue` 命令名；已被占用时自动回退为 `gh-<name>` |
 | `maxDiffChars` | `8000` | 审查读取 PR diff 的字符数上限 |
 | `reviewMode` | `static` | 评审引擎：`static`（确定性分析器）或 `model`（经宿主 `subagents` 接缝的一次性 subagent；接缝缺失时响亮失败） |
 | `allowedActions` | `8 项写动作` | 写动作白名单；名单外直接拒绝，先于审批 |
 | `ci` | `{ enabled: false, … }` | CI 集成段：轮询式审查机器人、状态检查门禁与一次性 `ci_run` 工具（其下为全部 `ci.*` 子键） |
 
 <details>
-<summary>完整配置表（22 个键）</summary>
+<summary>完整配置表（25 个键）</summary>
 
 | 键 | 默认值 | 含义 |
 |---|---|---|

@@ -72,6 +72,12 @@ export interface Config {
     defaultOwnerRepo?: string;
     /** Whether `/pr create` may instruct the model to commit and push first. */
     autoCommit: boolean;
+    /** Slash command name for the `/pr` family (default `pr`); a collision falls back to `gh-<name>`. */
+    prCommandName: string;
+    /** Slash command name for the `/review` family (default `review`); a collision falls back to `gh-<name>`. */
+    reviewCommandName: string;
+    /** Slash command name for the `/issue` family (default `issue`); a collision falls back to `gh-<name>`. */
+    issueCommandName: string;
     /** Character cap for PR diffs read into a review (diff or review job). */
     maxDiffChars: number;
     /** Character cap for the diff excerpt rendered into tool output. */

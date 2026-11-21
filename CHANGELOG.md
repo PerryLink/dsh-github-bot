@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.0] - 2026-11-21
+
+### Added
+
+- **Configurable slash command names: `prCommandName`, `reviewCommandName`, `issueCommandName` (defaults `pr` / `review` / `issue`).** A profile can now compose two plugins that both want `/review` (the reported collision with `@michengai/dsh-code-review` 1.0.14, #4). When the requested name is already registered, registration falls back to `gh-<name>` and emits one warning that names the collided command and the config key to change; the first plugin keeps its command and the second stays loadable instead of failing the whole entry. If the fallback is taken too, the original collision error is rethrown.
+
 ## [0.8.2] - 2026-11-04
 
 ### Changed

@@ -78,6 +78,7 @@ export class MockCommands {
   }>()
 
   register(definition: MockCommands['defs'] extends Map<string, infer V> ? V : never): () => void {
+    if (this.defs.has(definition.name)) throw new Error(`command "${definition.name}" is already registered`)
     this.defs.set(definition.name, definition)
     return () => {
       this.defs.delete(definition.name)

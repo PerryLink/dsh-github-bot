@@ -247,3 +247,32 @@ describe('/issue command', () => {
     expect((await services.commands.run('issue', 'list', new MockAgent())).kind).toBe('error')
   })
 })
+
+describe('configurable command names', () => {
+  it('registers the configured names instead of the defaults', async () => {
+    const services = await loaded({ prCommandName: 'prx', reviewCommandName: 'rv', issueCommandName: 'iss' })
+    expect(services.commands.defs.has('prx')).toBe(true)
+    expect(services.commands.defs.has('rv')).toBe(true)
+    expect(services.commands.defs.has('iss')).toBe(true)
+    expect(services.commands.defs.has('pr')).toBe(false)
+    const result = await services.commands.run('prx', '', new MockAgent())
+    expect(result.kind).toBe('success')
+    expect(result.text).toContain('/prx create')
+  })
+
+  it('falls back to gh-<name> when the requested name is already registered (#4)', async () => {
+    const services = makeServices()
+    services.commands.register({
+      name: 'review',
+      description: 'registered by another plugin',
+      handler: () => ({ kind: 'success', text: 'other plugin' }),
+    })
+    await loadPlugin(services, { config: { defaultOwnerRepo: 'o/r' } })
+    expect(services.commands.defs.has('gh-review')).toBe(true)
+    const result = await services.commands.run('gh-review', '', new MockAgent())
+    expect(result.kind).toBe('success')
+    expect(result.text).toContain('/gh-review')
+    // The other plugin's registration is untouched.
+    expect(services.commands.defs.get('review')?.description).toBe('registered by another plugin')
+  })
+})

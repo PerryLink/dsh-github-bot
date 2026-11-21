@@ -76,6 +76,12 @@ export interface Config {
   defaultOwnerRepo?: string
   /** Whether `/pr create` may instruct the model to commit and push first. */
   autoCommit: boolean
+  /** Slash command name for the `/pr` family (default `pr`); a collision falls back to `gh-<name>`. */
+  prCommandName: string
+  /** Slash command name for the `/review` family (default `review`); a collision falls back to `gh-<name>`. */
+  reviewCommandName: string
+  /** Slash command name for the `/issue` family (default `issue`); a collision falls back to `gh-<name>`. */
+  issueCommandName: string
   /** Character cap for PR diffs read into a review (diff or review job). */
   maxDiffChars: number
   /** Character cap for the diff excerpt rendered into tool output. */
@@ -119,6 +125,9 @@ export interface Config {
 }
 
 const OWNER_REPO_PATTERN = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/
+
+/** Host slash-command names: lowercase, digits and hyphens. */
+const COMMAND_NAME_PATTERN = /^[a-z][a-z0-9-]*$/
 
 /** Default sensitive-path globs for the sensitive-file rule. */
 export const DEFAULT_SENSITIVE_PATTERNS = [
@@ -198,6 +207,18 @@ export const Config: z<Config> = z.object({
   autoCommit: z.boolean()
     .default(false)
     .description('Whether /pr create may instruct the model to commit and push first.'),
+  prCommandName: z.string()
+    .pattern(COMMAND_NAME_PATTERN)
+    .default('pr')
+    .description('Slash command name for the PR family (default pr); a collision falls back to gh-<name>.'),
+  reviewCommandName: z.string()
+    .pattern(COMMAND_NAME_PATTERN)
+    .default('review')
+    .description('Slash command name for the review family (default review); a collision falls back to gh-<name>.'),
+  issueCommandName: z.string()
+    .pattern(COMMAND_NAME_PATTERN)
+    .default('issue')
+    .description('Slash command name for the issue family (default issue); a collision falls back to gh-<name>.'),
   maxDiffChars: z.number().step(1).min(1)
     .default(8000)
     .description('Character cap for PR diffs read into a review.'),

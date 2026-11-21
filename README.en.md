@@ -200,13 +200,16 @@ Most-used keys:
 | `tokenRef` | `GITHUB_TOKEN` | Credential-seam reference / environment-variable name |
 | `defaultOwnerRepo` | — | Fallback `owner/repo` when a call names none and git has no origin |
 | `autoCommit` | `false` | Whether `/pr create` may instruct the model to commit+push first |
+| `prCommandName` | `pr` | Slash command name for the PR family; falls back to `gh-<name>` when taken |
+| `reviewCommandName` | `review` | Slash command name for the review family; falls back to `gh-<name>` when taken |
+| `issueCommandName` | `issue` | Slash command name for the issue family; falls back to `gh-<name>` when taken |
 | `maxDiffChars` | `8000` | Character cap for PR diffs read into reviews |
 | `reviewMode` | `static` | Review engine: `static` (deterministic analyzer) or `model` (one-shot subagent through the host's `subagents` seam; fails loud when the seam is absent) |
 | `allowedActions` | `8 write actions` | Write-action whitelist; anything else is denied before approval |
 | `ci` | `{ enabled: false, … }` | CI integration section: polling review bot, status-check gate, and the one-shot `ci_run` tool (all `ci.*` keys live inside it) |
 
 <details>
-<summary>Full configuration table (22 keys)</summary>
+<summary>Full configuration table (25 keys)</summary>
 
 | Key | Default | Meaning |
 |---|---|---|
