@@ -141,7 +141,7 @@ dsh plugin --profile <name> add dsh-github-bot
 
 ### Examples
 
-![dsh-github-bot: real terminal run](docs/assets/dsh-github-demo.gif)
+![dsh-github-bot: real terminal run](docs/assets/dsh-github-bot-demo.gif)
 
 *Animated replay of a real run recorded in this repository.*
 

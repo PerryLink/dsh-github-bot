@@ -43,7 +43,7 @@ dsh plugin --profile <name> add dsh-github-bot
   <img src="docs/assets/dsh-github-bot-flow-v5-light.svg" width="100%" alt="dsh-github-bot संरचना: एक खड़ी विश्वास सीमा; सात पढ़ने वाले उपकरण सीधे api.github.com तक जाते हैं, आठ लिखने वाले सीमा पर लगे tools/pre-execute द्वार पर रुकते हैं, जहाँ allowedActions पहले मना करता है, CI ड्राइवर ci.autoApprove से गुज़रता है और बाकी ctx.approval से पूछते हैं और उत्तरदाता के बिना बंद हो जाते हैं; समीक्षा job और CI लेन नीचे से उसी द्वार पर लौटते हैं, नीचे token रेल है">
 </picture>
 
-![dsh-github-bot का असली टर्मिनल रन](docs/assets/dsh-github-demo.gif)
+![dsh-github-bot का असली टर्मिनल रन](docs/assets/dsh-github-bot-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
 

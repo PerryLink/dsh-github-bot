@@ -36,7 +36,7 @@ dsh plugin --profile <name> add dsh-github-bot
 
 ## 它是什么
 
-![dsh-github-bot 真实终端运行](docs/assets/dsh-github-demo.gif)
+![dsh-github-bot 真实终端运行](docs/assets/dsh-github-bot-demo.gif)
 
 *本仓库一次真实运行的动图回放。*
 
