@@ -336,7 +336,7 @@ Token configuration field नहीं है। `tokenSource: auto` प्र�
 
 | सतह | स्थिति |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.2.2-rc.4` (2026-11-18 को सत्यापित): `engines.dsh >=0.2.1-0 <0.3.0 || >=0.2.2-0 <0.3.0`; P0 compatibility पथों के regression tests हैं। |
+| Harness | DeepSeek Harness `dsh-v0.2.2-rc.4` (2026-11-18 को सत्यापित): `engines.dsh >=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0`; P0 compatibility पथों के regression tests हैं। |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | प्लेटफ़ॉर्म | सभी (host plugin; GitHub तक outbound network) |
 | मॉडल | कोई भी (static review deterministic है; `reviewMode: "model"` वैकल्पिक) |

@@ -335,7 +335,7 @@ token 不是配置字段。`tokenSource: auto` 每次操作按凭证接缝（`GI
 
 | 维度 | 状态 |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.2.2-rc.4`（2026-11-18 验证）：`engines.dsh >=0.2.1-0 <0.3.0 || >=0.2.2-0 <0.3.0`；P0 兼容路径已有回归测试。 |
+| Harness | DeepSeek Harness `dsh-v0.2.2-rc.4`（2026-11-18 验证）：`engines.dsh >=0.2.1-0 <0.3.0 \|\| >=0.2.2-0 <0.3.0`；P0 兼容路径已有回归测试。 |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | 平台 | 全部（host 插件；出站网络访问 GitHub） |
 | 模型 | 任意（静态审查是确定性的；`reviewMode: "model"` 为可选） |
