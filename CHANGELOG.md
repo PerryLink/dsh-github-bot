@@ -100,6 +100,10 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.9.2] - 2026-11-22
+
+- Compatibility: declare DeepSeek Harness 0.2.3-alpha.1 support (>=0.2.3-0 <0.3.0-0 in engines.dsh and every @deepseek-ai/dsh-* peer range) and refresh README verification stamps.
+
 ### Fixed
 
 - **The shipped browser bundle registers under the package name.** `scripts/bundle-client.mjs` hardcoded `id: "dsh-github-bot"`; DSH 0.2.1 keys client rows by package name (`dsh-github-bot`), so the loader fell back to the single-resource URL and re-executed the bundle, aborting web boot with `duplicate factory registration`. The wrapper now reads `package.json.name`, and `verify:artifacts` + `test/client-bundle.test.ts` assert the registration id.

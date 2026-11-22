@@ -11,6 +11,8 @@
 
 DeepSeek Harness के लिए GitHub एकीकरण प्लगइन: pull request बनाएँ, समीक्षा करें, merge करें और खोजें; issue पढ़ें-लिखें; साथ में CI composite action, polling review bot और status-check gate।
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [इंस्टॉल](#तीन-चरणों-में-शुरुआत) · [कॉन्फ़िगरेशन](#कॉन्फ़िगरेशन) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -46,7 +48,6 @@ dsh plugin --profile <name> add dsh-github-bot
 ![dsh-github-bot का असली टर्मिनल रन](docs/assets/dsh-github-bot-demo.gif)
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
-
 
 *संरचना: दो-पक्षीय विश्वास सीमा — पढ़ना सीधे api.github.com तक जाता है; लेखन खड़ी tools/pre-execute द्वार पर रुकता है, जहाँ allowedActions पहले मना करता है, CI ड्राइवर ci.autoApprove से गुजरता है और बाकी ctx.approval से पूछते हैं और उत्तरदाता के बिना बंद हो जाते हैं; समीक्षा job और CI लेन नीचे से उसी द्वार पर लौटते हैं।*
 

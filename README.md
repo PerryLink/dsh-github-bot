@@ -11,7 +11,9 @@
 
 面向 DeepSeek Harness 的 GitHub 集成插件：创建、审查、合并与搜索 PR，读写 issue，附带 CI 复合动作、轮询式审查机器人与状态检查门禁。
 
-[安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
+[安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [家族](#perrylink-dsh-plugin-family) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
 [![DSH](https://img.shields.io/badge/DSH-%E2%89%A50.2.1%20%3C0.3.0-4B67B4?style=flat-square&labelColor=2B3245)](#兼容性)
